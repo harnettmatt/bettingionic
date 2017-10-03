@@ -3,15 +3,19 @@
     <ion-title>Bets</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-</ion-content>
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let bet of bets">
+      <div class="home-team" item-left>
+        {{bet.homeTeam}}
+      </div>
+      <div class="date" item-middle>
+        <h3 text-center>{{bet.date}}</h3>
+        <h4 text-center>{{bet.time}}</h4>
+      </div>
+      <div class="visitor-team" item-right>
+        {{bet.visitorTeam}}
+      </div>
+    </button>
+  </ion-list>
+<ion-content>
