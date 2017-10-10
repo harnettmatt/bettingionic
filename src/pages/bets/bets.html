@@ -7,19 +7,33 @@
   <ion-list>
     <ion-item-group>
       <ion-item-divider color="light">Active Bets</ion-item-divider>
+      <button ion-item *ngFor="let bet of bets">
+        <div class="home-team" item-left>
+          <b>{{bet.proposerSide.name}}</b>
+          <h4><font size="2">{{bet.proposer.user.first_name}} {{bet.proposer.user.last_name}}</font></h4>
+        </div>
+        <div class="date" item-middle>
+          <h3 text-center>{{bet.fixture.startTime}}</h3>
+          <h4 text-center>${{bet.amount}}</h4>
+        </div>
+        <div class="visitor-team" item-right>
+          <h3 text-right>{{bet.acceptorSide.name}}</h3>
+          <h4><font size="2">{{bet.acceptor.user.first_name}} {{bet.acceptor.user.last_name}}</font></h4>
+        </div>
+      </button>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light">Fixtures</ion-item-divider>
-      <button ion-item *ngFor="let bet of bets">
+      <button ion-item *ngFor="let fixture of fixtures">
         <div class="home-team" item-left>
-          {{bet.homeTeam}}
+          {{fixture.homeTeam}}
         </div>
         <div class="date" item-middle>
-          <h3 text-center>{{bet.date}}</h3>
-          <h4 text-center>{{bet.time}}</h4>
+          <h3 text-center>{{fixture.date}}</h3>
+          <h4 text-center>{{fixture.time}}</h4>
         </div>
         <div class="visitor-team" item-right>
-          {{bet.visitorTeam}}
+          {{fixture.visitorTeam}}
         </div>
       </button>
     </ion-item-group>
