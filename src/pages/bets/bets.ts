@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {BetServiceProvider} from '../../providers/bet-service/bet-service';
+import {FixtureServiceProvider} from '../../providers/fixture-service/fixture-service';
 
 @Component({
   selector: 'page-bets',
@@ -10,21 +11,16 @@ export class BetsPage {
   bets: any;
   fixtures: any;
 
-  constructor(public betService: BetServiceProvider) {
+  constructor(public betService: BetServiceProvider, public fixtureService: FixtureServiceProvider) {
     this.fixtures = []
     this.fetchFixtures();
     this.fetchBets();
   }
 
   fetchFixtures(){
-    for(let i = 1; i<9; i++) {
-      this.fixtures.push({
-        homeTeam: 'Home Team ' + i,
-        visitorTeam: 'Visitor Team ' + i,
-        time: i + ':00',
-        date: i + '/' + i + '/200' + i
-      })
-    }
+    this.fixtureService.load().then(data => {
+      this.fixtures = data;
+    });
   }
 
   fetchBets(){
