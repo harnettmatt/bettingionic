@@ -1,3 +1,21 @@
 page-bets {
+  .item-md {
+    padding-right: 16px;
+  }
 
+  .item-md.item-block .item-inner {
+    padding-right: 0px
+  }
+
+  .label-md {
+    margin: 13px 0 13px 0
+  }
+
+  .grid {
+    padding: 0
+  }
+
+  .col {
+    padding: 0
+  }
 }

@@ -8,35 +8,43 @@
     <ion-item-group>
       <ion-item-divider color="light">Active Bets</ion-item-divider>
       <button ion-item *ngFor="let bet of bets">
-        <div class="home-team" item-left>
-          <b>{{bet.proposerSide.name}}</b>
-          <h4 text-left><font size="1">{{bet.proposer.user.first_name}}</font></h4>
-          <h4 text-left><font size="1">{{bet.proposer.user.last_name}}</font></h4>
-        </div>
-        <div class="date" item-middle>
-          <h3 text-center>{{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}}</h3>
-          <h3 text-center><font size="1">{{bet.fixture.startTime}}</font></h3>
-          <h4 text-center>${{bet.amount}}</h4>
-        </div>
-        <div class="visitor-team" item-right>
-          <h3 text-right>{{bet.acceptorSide.name}}</h3>
-          <h4 text-right><font size="1">{{bet.acceptor.user.first_name}}</font></h4>
-          <h4 text-right><font size="1">{{bet.acceptor.user.last_name}}</font></h4>
-        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <b>{{bet.proposerSide.name}}</b>
+              <h4 text-left><font size="1">{{bet.proposer.user.first_name}}</font></h4>
+              <h4 text-left><font size="1">{{bet.proposer.user.last_name}}</font></h4>
+            </ion-col>
+            <ion-col>
+              <h3 text-center>{{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}}</h3>
+              <h3 text-center><font size="1">{{bet.fixture.startTime}}</font></h3>
+              <h4 text-center>${{bet.amount}}</h4>
+            </ion-col>
+            <ion-col>
+              <h3 text-right>{{bet.acceptorSide.name}}</h3>
+              <h4 text-right><font size="1">{{bet.acceptor.user.first_name}}</font></h4>
+              <h4 text-right><font size="1">{{bet.acceptor.user.last_name}}</font></h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </button>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light">Fixtures</ion-item-divider>
       <button ion-item *ngFor="let fixture of fixtures">
-        <div class="home-team" item-left>
-          {{fixture.betable1.name}}
-        </div>
-        <div class="date" item-middle>
-          <h3 text-center>{{fixture.startTime}}</h3>
-        </div>
-        <div class="visitor-team" item-right>
-          {{fixture.betable2.name}}
-        </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h4 text-left><font size="2">{{fixture.betable1.name}}</font></h4>
+            </ion-col>
+            <ion-col>
+              <h4 text-center><font size="2">{{fixture.startTime}}</font></h4>
+            </ion-col>
+            <ion-col>
+              <h4 text-right><font size="2">{{fixture.betable2.name}}</font></h4>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </button>
     </ion-item-group>
   </ion-list>
