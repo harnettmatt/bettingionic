@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { FbloginPage } from '../pages/fblogin/fblogin';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { BetsPage } from '../pages/bets/bets';
@@ -20,7 +21,8 @@ import { BetServiceProvider } from '../providers/bet-service/bet-service';
     AboutPage,
     ContactPage,
     BetsPage,
-    TabsPage
+    TabsPage,
+    FbloginPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,8 @@ import { BetServiceProvider } from '../providers/bet-service/bet-service';
     AboutPage,
     ContactPage,
     BetsPage,
-    TabsPage
+    TabsPage,
+    FbloginPage
   ],
   providers: [
     StatusBar,
