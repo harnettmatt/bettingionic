@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Http } from '@angular/http';
 
 declare var window: any;
 declare var FB: any;
@@ -10,8 +11,10 @@ declare var FB: any;
   templateUrl: 'fblogin.html',
 })
 export class FbloginPage {
+  user: any;
+  accessToken: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -33,8 +36,12 @@ export class FbloginPage {
 
         FB.Event.subscribe('auth.statusChange', (response => {
             if (response.status === 'connected') {
-              console.log(response)
-              // handle the user info here
+              this.accessToken = response['authResponse']['accessToken']
+              this.loadUser();
+              // DATA
+                // First Last Name
+                // Profile Picture
+                // Friends
             }
         }));
     };
@@ -44,5 +51,30 @@ export class FbloginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FbloginPage');
   }
+
+  loadUser() {
+    if (this.user) {
+      // already loaded data
+      return Promise.resolve(this.user);
+    }
+
+    // don't have the data yet
+    const fields = 'id, name, picture'
+    return new Promise(resolve => {
+      // We're using Angular HTTP provider to request the data,
+      // then on the response, it'll map the JSON data to a parsed JS object.
+      // Next, we process the data and resolve the promise with the new data.
+      this.http.get('https://graph.facebook.com/me/?access_token='+this.accessToken+'&fields='+fields)
+        .map(res => res.json())
+        .subscribe(data => {
+          // we've got back the raw data, now generate the core schedule data
+          // and save the data for later reference
+          this.user = data;
+          console.log(data);
+          resolve(this.user);
+        });
+    });
+  }
+
 
 }
