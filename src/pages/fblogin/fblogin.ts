@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { PersonServiceProvider } from '../../providers/person-service/person-service';
 
 declare var window: any;
 declare var FB: any;
@@ -14,7 +15,7 @@ export class FbloginPage {
   user: any;
   accessToken: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public personService: PersonServiceProvider) {
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -37,7 +38,14 @@ export class FbloginPage {
         FB.Event.subscribe('auth.statusChange', (response => {
             if (response.status === 'connected') {
               this.accessToken = response['authResponse']['accessToken']
-              this.loadUser();
+              // send id and token to internal api
+              // if we find a user successfully
+                // return the user
+              // else
+                // loadUser
+              this.user = personService.createPerson()
+              console.log(this.user)
+              // this.loadUser();
             }
         }));
     };

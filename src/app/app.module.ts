@@ -14,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FixtureServiceProvider } from '../providers/fixture-service/fixture-service';
 import { BetServiceProvider } from '../providers/bet-service/bet-service';
+import { PersonServiceProvider } from '../providers/person-service/person-service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { BetServiceProvider } from '../providers/bet-service/bet-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FixtureServiceProvider,
-    BetServiceProvider
+    BetServiceProvider,
+    PersonServiceProvider
   ]
 })
 export class AppModule {}
