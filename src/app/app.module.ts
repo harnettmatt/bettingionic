@@ -9,12 +9,16 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { BetsPage } from '../pages/bets/bets';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SplashPage } from '../pages/splash/splash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { FixtureServiceProvider } from '../providers/fixture-service/fixture-service';
 import { BetServiceProvider } from '../providers/bet-service/bet-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
+import { FacebookServiceProvider } from '../providers/facebook-service/facebook-service';
+
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,14 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     ContactPage,
     BetsPage,
     TabsPage,
-    FbloginPage
+    FbloginPage,
+    SplashPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +43,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     ContactPage,
     BetsPage,
     TabsPage,
-    FbloginPage
+    FbloginPage,
+    SplashPage
   ],
   providers: [
     StatusBar,
@@ -45,7 +52,8 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FixtureServiceProvider,
     BetServiceProvider,
-    UserServiceProvider
+    UserServiceProvider,
+    FacebookServiceProvider,
   ]
 })
 export class AppModule {}

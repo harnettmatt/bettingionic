@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { FacebookServiceProvider } from '../../providers/facebook-service/facebook-service';
+import { BetsPage } from '../bets/bets';
 
 declare var window: any;
 declare var FB: any;
@@ -16,58 +18,53 @@ export class FbloginPage {
   fbAccessToken: any;
   internalTokenResponse: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public userService: UserServiceProvider, public facebookService: FacebookServiceProvider) {
+
     (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = '//connect.facebook.net/en_US/sdk.js';
-        fjs.parentNode.insertBefore(js, fjs);
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
     window.fbAsyncInit = () => {
-        console.log("fbasyncinit")
 
-        FB.init({
-            appId            : '1576286162417361',
-            autoLogAppEvents : true,
-            xfbml            : true,
-            version          : 'v2.10'
-        });
-        FB.AppEvents.logPageView();
+      FB.init({
+          appId            : '1576286162417361',
+          autoLogAppEvents : true,
+          xfbml            : true,
+          version          : 'v2.10'
+      });
+      FB.AppEvents.logPageView();
 
-        FB.Event.subscribe('auth.statusChange', (response => {
-            if (response.status === 'connected') {
-              this.fbAccessToken = response['authResponse']['accessToken'];
-              console.log(this.accessToken);
-              this.internalTokenResponse = userService.exchangeFBToken(this.accessToken);
-              // send id and token to internal api
-              // if we find a user successfully
-                // return the user
-              // else
-                // loadUser
-              // this.user = userService.createUser();
-              // console.log(this.user);
-              // this.loadUser();
-            }
-        }));
-    };
+      FB.Event.subscribe('auth.statusChange', (response => {
+        if (response.status === 'connected') {
+          this.fbAccessToken = response['authResponse']['accessToken'];
+          if (!this.fbAccessToken) throw 'could not connect to facebook';
+          // localstorageService.store('fbToken', this.fbAccessToken);
+          window.localStorage.setItem('fbToken', this.fbAccessToken);
+          Promise.all([this.getUser(), this.facebookService.loadUser(this.fbAccessToken)])
+            .then(function(results) {
+              window.localStorage.setItem('user', results[0]);
+              window.localStorage.setItem('fbUser', results[1]);
+              navCtrl.setRoot(BetsPage);
+            })
+        }
+      }));
+    }
   }
 
-  loadUser() {
-    if (this.user) {
-      return Promise.resolve(this.user);
+  getUser() {
+    this.internalTokenResponse = window.localStorage.getItem('internalTokenResponse');
+    if (this.internalTokenResponse === null) {
+      return this.userService.exchangeFBToken(this.fbAccessToken)
+        .then(newToken => {this.userService.loadUser(newToken['access_token'])})
     }
-
-    const fields = 'id, name, picture'
-    return new Promise(resolve => {
-      this.http.get('https://graph.facebook.com/me/?access_token='+this.accessToken+'&fields='+fields)
-        .map(res => res.json())
-        .subscribe(data => {
-          this.user = data;
-          console.log(data);
-          resolve(this.user);
-        });
-    });
+    else {
+      this.internalTokenResponse = JSON.parse(this.internalTokenResponse);
+      return this.userService.refreshToken(this.internalTokenResponse['refresh_token'])
+        .then(newToken => {this.userService.loadUser(newToken['access_token'])})
+    }
   }
 }
