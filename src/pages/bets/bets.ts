@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { LoadingController, NavController } from 'ionic-angular';
 import {BetServiceProvider} from '../../providers/bet-service/bet-service';
 import {FixtureServiceProvider} from '../../providers/fixture-service/fixture-service';
 
@@ -15,15 +15,23 @@ export class BetsPage {
   accessTokenResponse: any;
   fbAccessToken: any;
 
-  constructor(public betService: BetServiceProvider, public fixtureService: FixtureServiceProvider) {
-    this.fixtures = [];
+  constructor(public betService: BetServiceProvider, public fixtureService: FixtureServiceProvider, public loadingController: LoadingController) {
+
+  }
+
+  ionViewWillEnter() {
     this.fbAccessToken = window.localStorage.getItem('fbToken');
     this.accessTokenResponse = window.localStorage.getItem('internalTokenResponse');
     this.accessTokenResponse = JSON.parse(this.accessTokenResponse);
+    // let loading = this.loadingController.create({
+    //   content : 'loading'
+    // });
+    // loading.present();
     Promise.all([this.fetchFixtures(), this.fetchBets()])
       .then(results => {
         this.fixtures = results[0];
         this.bets = results[1];
+        // loading.dismiss();
       });
   }
 
