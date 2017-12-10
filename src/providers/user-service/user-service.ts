@@ -91,7 +91,7 @@ export class UserServiceProvider {
         .subscribe(
           data => {
             window.localStorage.setItem('internalTokenResponse', JSON.stringify(data));
-            resolve(this.exchangeTokenResponse);
+            resolve(data);
           },
           err => {reject(err)}
         );
