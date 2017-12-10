@@ -10,10 +10,8 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class FixtureServiceProvider {
-  data: any
 
   constructor(public http: Http) {
-    console.log('Hello FixtureServiceProvider Provider');
   }
 
   load(accessToken) {
