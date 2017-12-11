@@ -7,45 +7,45 @@
   <ion-list>
     <ion-item-group>
       <ion-item-divider color="light">Active Bets</ion-item-divider>
-      <button ion-item *ngFor="let bet of bets">
-        <ion-grid>
+      <ion-grid>
+        <button ion-item *ngFor="let bet of bets" clear (click)="betDetail(bet)">
           <ion-row>
             <ion-col>
-              <h4 text-left><font size="3">{{bet.proposerSide.name}}</font></h4>
-              <h4 text-left><font size="1">{{bet.proposer.first_name}}</font></h4>
-              <h4 text-left><font size="1">{{bet.proposer.last_name}}</font></h4>
+              <h4 text-left><font size="3" color='black'>{{bet.proposerSide.name}}</font></h4>
+              <h4 text-left><font size="1" color='black'>{{bet.proposer.first_name}}</font></h4>
+              <h4 text-left><font size="1" color='black'>{{bet.proposer.last_name}}</font></h4>
             </ion-col>
             <ion-col>
-              <h3 text-center><font size="3"> {{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}} </font></h3>
-              <h3 text-center><font size="1"> {{bet.fixture.startTime}} </font></h3>
+              <h3 text-center><font size="3" color='black'> {{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}} </font></h3>
+              <h3 text-center><font size="1" color='black'> {{bet.fixture.startTime}} </font></h3>
               <h4 text-center><font size="2" color="green"> ${{bet.amount}} </font></h4>
             </ion-col>
             <ion-col>
-              <h4 text-right><font size="3">{{bet.acceptorSide.name}}</font></h4>
-              <h4 text-right><font size="1">{{bet.acceptor.first_name}}</font></h4>
-              <h4 text-right><font size="1">{{bet.acceptor.last_name}}</font></h4>
+              <h4 text-right><font size="3" color='black'>{{bet.acceptorSide.name}}</font></h4>
+              <h4 text-right><font size="1" color='black'>{{bet.acceptor.first_name}}</font></h4>
+              <h4 text-right><font size="1" color='black'>{{bet.acceptor.last_name}}</font></h4>
             </ion-col>
           </ion-row>
-        </ion-grid>
-      </button>
+        </button>
+      </ion-grid>
     </ion-item-group>
     <ion-item-group>
       <ion-item-divider color="light">Fixtures</ion-item-divider>
-      <button ion-item *ngFor="let fixture of fixtures">
-        <ion-grid>
+      <ion-grid>
+        <button ion-item *ngFor="let fixture of fixtures" clear (click)="fixtureDetail(fixture)">
           <ion-row>
             <ion-col>
-              <h4 text-left><font size="3">{{fixture.betable1.name}}</font></h4>
+              <h4 text-left><font size="3" color='black'>{{fixture.betable1.name}}</font></h4>
             </ion-col>
             <ion-col>
-              <h4 text-center><font size="3">{{fixture.startTime}}</font></h4>
+              <h4 text-center><font size="3" color='black'>{{fixture.startTime}}</font></h4>
             </ion-col>
             <ion-col>
-              <h4 text-right><font size="3">{{fixture.betable2.name}}</font></h4>
+              <h4 text-right><font size="3" color='black'>{{fixture.betable2.name}}</font></h4>
             </ion-col>
           </ion-row>
-        </ion-grid>
-      </button>
+        </button>
+      </ion-grid>
     </ion-item-group>
   </ion-list>
 </ion-content>
