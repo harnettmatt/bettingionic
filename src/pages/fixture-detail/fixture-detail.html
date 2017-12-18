@@ -1,18 +1,49 @@
-<!--
-  Generated template for the FixtureDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>fixture-detail</ion-title>
+    <ion-title>{{fixture.betable1.name}} v.s. {{fixture.betable2.name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-grid>
+    <ion-row class="image">
+      <ion-col>
+        <img src="http://localhost:8000{{betable1Photo}}" on-tap="selectBetable1()">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h4>{{fixture.date}}</h4>
+        <h4>@ {{fixture.startTime}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="image">
+      <ion-col>
+        <img src="http://localhost:8000{{betable2Photo}}" on-tap="selectBetable2()">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+
+<!--
+    <button ion-item *ngFor="let bet of bets" clear (click)="betDetail(bet)">
+      <ion-row>
+        <ion-col>
+          <h4 text-left><font size="3" color='black'>{{bet.proposerSide.name}}</font></h4>
+          <h4 text-left><font size="1" color='black'>{{bet.proposer.first_name}}</font></h4>
+          <h4 text-left><font size="1" color='black'>{{bet.proposer.last_name}}</font></h4>
+        </ion-col>
+        <ion-col>
+          <h4 text-center><font size="3" color='black'> {{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}} </font></h4>
+          <h4 text-center><font size="1" color='black'> {{bet.fixture.startTime}} </font></h4>
+          <h4 text-center><font size="2" color="green"> ${{bet.amount}} </font></h4>
+        </ion-col>
+        <ion-col>
+          <h4 text-right><font size="3" color='black'>{{bet.acceptorSide.name}}</font></h4>
+          <h4 text-right><font size="1" color='black'>{{bet.acceptor.first_name}}</font></h4>
+          <h4 text-right><font size="1" color='black'>{{bet.acceptor.last_name}}</font></h4>
+        </ion-col>
+      </ion-row>
+    </button>
+  </ion-grid> -->
