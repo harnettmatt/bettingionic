@@ -11,7 +11,7 @@
         <img src="http://localhost:8000{{betable1Photo}}" on-tap="selectBetable1()">
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="text">
       <ion-col>
         <h4>{{fixture.date}}</h4>
         <h4>@ {{fixture.startTime}}</h4>
@@ -21,6 +21,11 @@
       <ion-col>
         <img src="http://localhost:8000{{betable2Photo}}" on-tap="selectBetable2()">
       </ion-col>
+    </ion-row>
+    <ion-row class="buttons">
+        <button ion-button *ngFor="let amount of amounts" [color]="amount.color" round=true (click)=selectAmount(amount)>
+          <ion-label><h4><font size="5" color="green">{{amount.value}}</font></h4></ion-label>
+        </button>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
+// Make an amount object that has the number value and the color. when you select
+// a button, pass the amount object in. loop through the amounts, if it isn't the
+// correct amount, set the default color. If it is the correct amount, set the
+// color to the selected color
+
 
 @IonicPage()
 @Component({
@@ -13,11 +18,19 @@ export class FixtureDetailPage {
   betable1Photo: any;
   betable2Photo: any;
   selectedBetable: any;
+  amounts: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.fixture = navParams.get('fixture');
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.betable2Photo = this.fixture.betable2.grayscalePhoto;
+    this.amounts = [
+      {value: 5, color: 'light'},
+      {value: 10, color: 'light'},
+      {value: 25, color: 'light'},
+      {value: 50, color: 'light'},
+      {value: 100, color: 'light'}
+    ];
   }
 
   selectBetable1() {
@@ -30,5 +43,16 @@ export class FixtureDetailPage {
     this.betable2Photo = this.fixture.betable2.colorPhoto;
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.selectedBetable = this.fixture.betable2;
+  }
+
+  selectAmount(amount) {
+    for (var a in this.amounts){
+      if (this.amounts[a].value == amount.value) {
+        this.amounts[a].color = 'default';
+      }
+      else {
+        this.amounts[a].color = 'light';
+      }
+    }
   }
 }
