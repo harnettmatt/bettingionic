@@ -24,7 +24,7 @@
     </ion-row>
     <ion-row class="buttons">
         <button ion-button *ngFor="let amount of amounts" [color]="amount.color" round=true (click)=selectAmount(amount)>
-          <ion-label><h4><font size="5" color="green">{{amount.value}}</font></h4></ion-label>
+          <ion-label><h4><font size="3" color="green">${{amount.value}}</font></h4></ion-label>
         </button>
     </ion-row>
   </ion-grid>

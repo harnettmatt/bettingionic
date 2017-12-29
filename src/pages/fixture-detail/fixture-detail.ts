@@ -25,10 +25,10 @@ export class FixtureDetailPage {
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.betable2Photo = this.fixture.betable2.grayscalePhoto;
     this.amounts = [
-      {value: 5, color: 'light'},
-      {value: 10, color: 'light'},
-      {value: 25, color: 'light'},
-      {value: 50, color: 'light'},
+      {value: 5,   color: 'light'},
+      {value: 10,  color: 'light'},
+      {value: 25,  color: 'light'},
+      {value: 50,  color: 'light'},
       {value: 100, color: 'light'}
     ];
   }
