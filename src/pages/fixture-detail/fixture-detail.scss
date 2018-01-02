@@ -26,7 +26,11 @@ page-fixture-detail {
   .button-md {
     text-align: center;
     width: 19%;
-    height: 20%;
+    height: 100%;
+  }
+
+  .friend.button-md {
+    width: 50%
   }
 
   .label-md {

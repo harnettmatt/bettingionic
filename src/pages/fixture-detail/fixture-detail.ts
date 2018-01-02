@@ -55,4 +55,8 @@ export class FixtureDetailPage {
       }
     }
   }
+
+  selectFriend() {
+    console.log('yo wassup hommie');
+  }
 }
