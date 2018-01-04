@@ -118,4 +118,22 @@ export class UserServiceProvider {
         );
     });
   }
+
+  updateUserFBData(accessToken, fbUser) {
+    console.log(accessToken);
+    var headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + accessToken);
+    let options = new RequestOptions({ headers: headers });
+    let user = { "fbID" : fbUser.id}
+    return new Promise((resolve, reject) => {
+      this.http.patch("http://localhost:8000/me/", user, options)
+        .map(res => res.json())
+        .subscribe(
+          data => {resolve(data)},
+          err  => {reject(err)}
+        )
+    });
+  }
 }

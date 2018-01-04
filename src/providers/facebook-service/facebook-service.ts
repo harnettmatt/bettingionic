@@ -13,7 +13,7 @@ export class FacebookServiceProvider {
   }
 
   loadUser(accessToken) {
-    const fields = 'id, name, picture';
+    const fields = 'id, email';
       return new Promise((resolve,reject) => {
         this.http.get('https://graph.facebook.com/me/?access_token='+accessToken+'&fields='+fields)
           .map(res => res.json())
