@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { FriendsPage } from '../friends/friends';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 
 // Make an amount object that has the number value and the color. when you select
@@ -19,8 +21,12 @@ export class FixtureDetailPage {
   betable2Photo: any;
   selectedBetable: any;
   amounts: any;
+  selectedFriend: any;
+  friends: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
+    this.selectedFriend = null;
+    this.friends = null;
     this.fixture = navParams.get('fixture');
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.betable2Photo = this.fixture.betable2.grayscalePhoto;
@@ -57,6 +63,11 @@ export class FixtureDetailPage {
   }
 
   selectFriend() {
-    console.log('yo wassup hommie');
+    this.userService.loadUsers().then(
+      friends => {
+        this.friends = friends;
+        window.localStorage.setItem('friends', JSON.stringify(this.friends));
+        this.navCtrl.push(FriendsPage);
+      })
   }
 }

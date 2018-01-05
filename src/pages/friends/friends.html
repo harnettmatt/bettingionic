@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>friends</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let friend of friends" clear (click)="selectFriend(friend)">
+      <ion-label><h4><font size="3">{{friend.first_name}} {{friend.last_name}}</font></h4></ion-label> 
+    </button>
+  </ion-list>
+</ion-content>

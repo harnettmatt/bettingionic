@@ -12,6 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SplashPage } from '../pages/splash/splash';
 import { BetDetailPage } from '../pages/bet-detail/bet-detail';
 import { FixtureDetailPage } from '../pages/fixture-detail/fixture-detail';
+import { FriendsPage } from '../pages/friends/friends';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +34,8 @@ import { IonicStorageModule } from '@ionic/storage';
     FbloginPage,
     SplashPage,
     FixtureDetailPage,
-    BetDetailPage
+    BetDetailPage,
+    FriendsPage
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { IonicStorageModule } from '@ionic/storage';
     FbloginPage,
     SplashPage,
     FixtureDetailPage,
-    BetDetailPage
+    BetDetailPage,
+    FriendsPage
   ],
   providers: [
     StatusBar,

@@ -15,18 +15,16 @@ export class UserServiceProvider {
   }
 
   loadUsers() {
-    if (this.data) {
-      return Promise.resolve(this.data);
-    }
-
-
-    return new Promise(resolve => {
-      this.http.get('http://127.0.0.1:8000/users/')
+    var headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + 	'olAjXi9KCABaxVDHXbiJu2QLmB5mKI'
+    });
+    return new Promise((resolve, reject) => {
+      this.http.get('http://127.0.0.1:8000/users/', { headers: headers })
         .map(res => res.json())
-        .subscribe(data => {
-          this.data = data;
-          resolve(this.data);
-        });
+        .subscribe(
+          data => {resolve(data)},
+          err => {reject(err)});
     });
   }
 
@@ -84,8 +82,8 @@ export class UserServiceProvider {
     let options = new RequestOptions({ headers: headers });
     let clientID = 'uyGdgzWIqDW63MDetIbRu0xXn1Et4VRhSU2h2lNR';
     let clientSecret = 'B6mi5Yfv5oa4fyUvHQsj2lNVKjvHsZ90nzARcah4xpXagDIIEHjVFQCgwc2XIpSFAp14K4mdwkgzSYS5dUAd7X3fNAPz9R87GGzQKzyutgRprx0Qbm4bVnVEYyrpNuk7';
-
     return new Promise((resolve,reject) => {
+
       this.http.post('http://127.0.0.1:8000/auth/convert-token?grant_type=convert_token&client_id='+clientID+'&client_secret='+clientSecret+'&backend=facebook&token='+fbToken, options)
         .map(res => res.json())
         .subscribe(
