@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { FriendsPage } from '../friends/friends';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
@@ -22,10 +22,14 @@ export class FixtureDetailPage {
   selectedBetable: any;
   amounts: any;
   selectedFriend: any;
+  selectedFriendColor: any;
   friends: any;
+  selectedFriendText: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider, private events: Events) {
     this.selectedFriend = null;
+    this.selectedFriendText = 'Select a Friend';
+    this.selectedFriendColor = 'light';
     this.friends = null;
     this.fixture = navParams.get('fixture');
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
@@ -38,6 +42,14 @@ export class FixtureDetailPage {
       {value: 100, color: 'light'}
     ];
   }
+
+  // ionViewDidEnter() {
+  //   console.log(this.selectedFriend);
+  //   if (this.selectedFriend){
+  //     this.selectedFriendText = this.selectedFriend.first_name + ' ' + this.selectedFriend.last_name;
+  //     this.selectedFriendColor = 'default';
+  //   }
+  // }
 
   selectBetable1() {
     this.betable1Photo = this.fixture.betable1.colorPhoto;
@@ -67,6 +79,14 @@ export class FixtureDetailPage {
       friends => {
         this.friends = friends;
         window.localStorage.setItem('friends', JSON.stringify(this.friends));
+        this.events.subscribe('selectedFriendEvent', (selectedFriend) => {
+          this.selectedFriend = selectedFriend;
+          if (this.selectedFriend){
+            this.selectedFriendText = this.selectedFriend.first_name + ' ' + this.selectedFriend.last_name;
+            this.selectedFriendColor = 'default';
+          }
+          this.events.unsubscribe('selectedFriendEvent');
+        })
         this.navCtrl.push(FriendsPage);
       })
   }

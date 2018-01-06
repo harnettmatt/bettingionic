@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events} from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 declare var window: any;
@@ -13,15 +13,14 @@ export class FriendsPage {
   selectedFriend: any;
   friends: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider, private events: Events) {
 
     this.friends = JSON.parse(window.localStorage.getItem('friends'));
   }
 
   selectFriend(friend) {
     this.selectedFriend = friend;
-    window.localStorage.setItem('selectedFriend', this.selectedFriend);
-    this.navCtrl.pop();
+    this.navCtrl.pop().then(() => this.events.publish('selectedFriendEvent', this.selectedFriend));
   }
 
 }

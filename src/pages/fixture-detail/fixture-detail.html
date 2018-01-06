@@ -31,8 +31,8 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <button ion-button color="blue" round=true (click)=selectFriend() class="friend">
-          <ion-label><h4><font size="3">Select Friend</font></h4></ion-label>
+        <button ion-button [color]="selectedFriendColor" round=true (click)=selectFriend() class="friend">
+          <ion-label><h4><font size="3">{{selectedFriendText}}</font></h4></ion-label>
         </button>
       </ion-col>
     </ion-row>
