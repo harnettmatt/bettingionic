@@ -20,20 +20,28 @@ export class FixtureDetailPage {
   betable1Photo: any;
   betable2Photo: any;
   selectedBetable: any;
+  selectedAmount: any;
   amounts: any;
   selectedFriend: any;
   selectedFriendColor: any;
   friends: any;
   selectedFriendText: any;
+  betReady: any;
+  betReadyText:any;
+  betReadyColor: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userService: UserServiceProvider, private events: Events) {
     this.selectedFriend = null;
     this.selectedFriendText = 'Select a Friend';
+    this.betReadyText = 'Finish Making Selections';
+    this.betReadyColor = 'danger';
     this.selectedFriendColor = 'light';
     this.friends = null;
     this.fixture = navParams.get('fixture');
+    this.selectedBetable = null;
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.betable2Photo = this.fixture.betable2.grayscalePhoto;
+    this.selectedAmount = null;
     this.amounts = [
       {value: 5,   color: 'light'},
       {value: 10,  color: 'light'},
@@ -55,18 +63,22 @@ export class FixtureDetailPage {
     this.betable1Photo = this.fixture.betable1.colorPhoto;
     this.betable2Photo = this.fixture.betable2.grayscalePhoto;
     this.selectedBetable = this.fixture.betable1;
+    this.checkBetReady();
   }
 
   selectBetable2() {
     this.betable2Photo = this.fixture.betable2.colorPhoto;
     this.betable1Photo = this.fixture.betable1.grayscalePhoto;
     this.selectedBetable = this.fixture.betable2;
+    this.checkBetReady();
   }
 
   selectAmount(amount) {
     for (var a in this.amounts){
       if (this.amounts[a].value == amount.value) {
         this.amounts[a].color = 'default';
+        this.selectedAmount = this.amounts[a];
+        this.checkBetReady();
       }
       else {
         this.amounts[a].color = 'light';
@@ -84,10 +96,23 @@ export class FixtureDetailPage {
           if (this.selectedFriend){
             this.selectedFriendText = this.selectedFriend.first_name + ' ' + this.selectedFriend.last_name;
             this.selectedFriendColor = 'default';
+            this.checkBetReady();
           }
           this.events.unsubscribe('selectedFriendEvent');
         })
         this.navCtrl.push(FriendsPage);
       })
+  }
+
+  makeBet() {
+    console.log('making bet');
+  }
+
+  checkBetReady() {
+    if (this.selectedFriend && this.selectedBetable && this.selectedAmount) {
+      this.betReady = true;
+      this.betReadyColor = 'secondary';
+      this.betReadyText = 'Make Bet';
+    }
   }
 }

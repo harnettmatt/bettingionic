@@ -36,6 +36,13 @@
         </button>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button [color]="betReadyColor" round=true (click)=makeBet() class="betReady">
+          <ion-label><h4><font size="3">{{betReadyText}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
 </ion-content>
 
