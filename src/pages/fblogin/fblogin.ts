@@ -55,7 +55,7 @@ export class FbloginPage {
               this.userService.updateUserFBData(this.internalTokenResponse['access_token'], this.fbUser)
                 .then(user => {
                   this.user = user;
-                  window.localStorage.setItem('user', this.user);
+                  window.localStorage.setItem('user', JSON.stringify(this.user));
                   navCtrl.setRoot(BetsPage);
                 })
             })
