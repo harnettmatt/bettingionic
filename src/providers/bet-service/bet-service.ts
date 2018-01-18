@@ -29,4 +29,20 @@ export class BetServiceProvider {
     });
   }
 
+  makeBet(bet, accessToken) {
+    var headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Content-Type', 'application/json' );
+    headers.append('Authorization', 'Bearer ' + accessToken);
+    let options = new RequestOptions({ headers: headers });
+
+    return new Promise((resolve, reject) => {
+      this.http.post('http://127.0.0.1:8000/bets/', bet, options)
+        .map(res => res.json())
+        .subscribe(
+          data => {resolve(data)},
+          err => {reject(err)});
+    });
+  }
+
 }

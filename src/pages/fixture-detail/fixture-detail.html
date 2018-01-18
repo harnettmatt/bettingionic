@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{fixture.betable1.name}} v.s. {{fixture.betable2.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="image">
+      <ion-col class="image">
+        <img src="http://localhost:8000{{betable1Photo}}" on-tap="selectBetable1()">
+      </ion-col>
+    </ion-row>
+    <ion-row class="text">
+      <ion-col class="image">
+        <h4>{{fixture.date}}</h4>
+        <h4>@ {{fixture.startTime}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="image">
+      <ion-col class="image">
+        <img src="http://localhost:8000{{betable2Photo}}" on-tap="selectBetable2()">
+      </ion-col>
+    </ion-row>
+    <ion-row class="buttons">
+      <ion-col>
+        <button ion-button *ngFor="let amount of amounts" [color]="amount.color" round=true (click)=selectAmount(amount)>
+          <ion-label><h4><font size="3" color="green">${{amount.value}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button [color]="selectedFriendColor" round=true (click)=selectFriend() class="friend">
+          <ion-label><h4><font size="3">{{selectedFriendText}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button [color]="betReadyColor" round=true (click)=makeBet() class="betReady">
+          <ion-label><h4><font size="3">{{betReadyText}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+<!--
+    <button ion-item *ngFor="let bet of bets" clear (click)="betDetail(bet)">
+      <ion-row>
+        <ion-col>
+          <h4 text-left><font size="3" color='black'>{{bet.proposerSide.name}}</font></h4>
+          <h4 text-left><font size="1" color='black'>{{bet.proposer.first_name}}</font></h4>
+          <h4 text-left><font size="1" color='black'>{{bet.proposer.last_name}}</font></h4>
+        </ion-col>
+        <ion-col>
+          <h4 text-center><font size="3" color='black'> {{bet.fixture.betable1Score}}-{{bet.fixture.betable2Score}} </font></h4>
+          <h4 text-center><font size="1" color='black'> {{bet.fixture.startTime}} </font></h4>
+          <h4 text-center><font size="2" color="green"> ${{bet.amount}} </font></h4>
+        </ion-col>
+        <ion-col>
+          <h4 text-right><font size="3" color='black'>{{bet.acceptorSide.name}}</font></h4>
+          <h4 text-right><font size="1" color='black'>{{bet.acceptor.first_name}}</font></h4>
+          <h4 text-right><font size="1" color='black'>{{bet.acceptor.last_name}}</font></h4>
+        </ion-col>
+      </ion-row>
+    </button>
+  </ion-grid> -->

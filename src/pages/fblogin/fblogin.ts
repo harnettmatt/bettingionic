@@ -15,6 +15,7 @@ declare var FB: any;
 })
 export class FbloginPage {
   user: any;
+  fbUser: any;
   fbAccessToken: any;
   internalTokenResponse: any;
 
@@ -45,10 +46,18 @@ export class FbloginPage {
           // localstorageService.store('fbToken', this.fbAccessToken);
           window.localStorage.setItem('fbToken', this.fbAccessToken);
           Promise.all([this.getUser(), this.facebookService.loadUser(this.fbAccessToken)])
-            .then(function(results) {
-              window.localStorage.setItem('user', results[0]);
-              window.localStorage.setItem('fbUser', results[1]);
-              navCtrl.setRoot(BetsPage);
+            .then(results => {
+              this.user = results[0];
+              this.fbUser = results[1];
+              this.internalTokenResponse = JSON.parse(window.localStorage.getItem('internalTokenResponse'));
+              console.log(this.internalTokenResponse);
+              console.log(this.internalTokenResponse['access_token']);
+              this.userService.updateUserFBData(this.internalTokenResponse['access_token'], this.fbUser)
+                .then(user => {
+                  this.user = user;
+                  window.localStorage.setItem('user', JSON.stringify(this.user));
+                  navCtrl.setRoot(BetsPage);
+                })
             })
         }
       }));
