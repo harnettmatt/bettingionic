@@ -1,18 +1,47 @@
-<!--
-  Generated template for the BetDetailPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>bet-detail</ion-title>
+    <ion-title>{{bet.fixture.betable1.name}} v.s. {{bet.fixture.betable2.name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-grid>
+    <ion-row class="image">
+      <ion-col class="image">
+        <img src={{betable1Photo}}>
+      </ion-col>
+    </ion-row>
+    <ion-row class="text">
+      <ion-col class="image">
+        <h4>{{bet.fixture.date}}</h4>
+        <h4>@ {{bet.fixture.startTime}}</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row class="image">
+      <ion-col class="image">
+        <img src={{betable2Photo}}>
+      </ion-col>
+    </ion-row>
+    <ion-row class="buttons">
+      <ion-col>
+        <button ion-button color="default" round=true>
+          <ion-label><h4><font size="3" color="green">${{bet.amount}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button color="default" round=true class="friend">
+          <ion-label><h4><font size="3">{{friend.first_name}} {{friend.last_name}}</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button color="danger" round=true (click)=cancelBet() class="cancelBet">
+          <ion-label><h4><font size="3">Cancel Bet</font></h4></ion-label>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
